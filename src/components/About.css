@@ -3,7 +3,7 @@
   background-color: var(--color-gray-50);
 }
 
-.about-container {
+.about-container-products, .about-container-services{
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 1rem;

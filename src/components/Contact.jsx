@@ -7,55 +7,6 @@ const Contact = () => {
   const formRef = useRef(null);
   const [isSending, setIsSending] = useState(false); // Estado para o botão de loading
 
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Endereço",
-      details: [
-        "Rua Retiro Campestre, 419",
-        "Retiro - Contagem, MG",
-        "CEP: 32050-400",
-      ],
-      color: "contact-blue",
-    },
-    {
-      icon: Phone,
-      title: "Telefone",
-      details: ["(31) 98359-7825", "(31) 99298-2421", "WhatsApp disponível"],
-      color: "contact-green",
-    },
-    {
-      icon: Mail,
-      title: "E-mail",
-      details: ["pastoral.pibare@gmail.com"],
-      color: "contact-purple",
-    },
-    {
-      icon: Clock,
-      title: "Horários",
-      details: ["Dom: 9h e 19h", "Qua: 19h30"],
-      color: "contact-orange",
-    },
-  ];
-
-  // Efeito de "blink" quando o formulário entra na tela
-  useEffect(() => {
-    const formEl = formRef.current;
-    if (!formEl) return;
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          formEl.classList.add("blink");
-          setTimeout(() => {
-            formEl.classList.remove("blink");
-          }, 1200);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(formEl);
-    return () => observer.disconnect();
-  }, []);
 
   // FUNÇÃO PARA ENVIAR O E-MAIL
   const sendEmail = (e) => {
@@ -86,42 +37,7 @@ const Contact = () => {
   return (
     <section id="contato" className="contact-section">
       <div className="contact-container">
-        {/* Header */}
-        <div className="contact-header">
-          <h2 className="contact-title">Entre em Contato</h2>
-          <p className="contact-subtitle">
-            Estamos aqui para você! Entre em contato conosco para tirar dúvidas,
-            agendar uma visita ou saber mais sobre nossa igreja.
-          </p>
-        </div>
-
-        <div className="contact-grid">
-          {/* Contact Information */}
-          <div className="contact-info-section">
-            <h3 className="contact-info-title">Informações de Contato</h3>
-            <div className="contact-info-list">
-              {contactInfo.map((info, index) => (
-                <div key={index} className="contact-info-card">
-                  <div className="contact-info-content">
-                    <div className={`contact-icon-wrapper ${info.color}`}>
-                      <info.icon className="contact-icon" />
-                    </div>
-                    <div className="contact-details">
-                      <h4 className="contact-details-title">{info.title}</h4>
-                      {info.details.map((detail, idx) => (
-                        <p key={idx} className="contact-detail-text">
-                          {detail}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="contact-form-section">
+           <div className="contact-form-section">
             <div
               className="contact-form-wrapper"
               id="form-contato"
@@ -223,23 +139,6 @@ const Contact = () => {
             </div>
           </div>
         </div>
-
-        {/* Map Section */}
-        <div className="map-section">
-          <h3 className="map-title">Nossa Localização</h3>
-          <div className="map-placeholder">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7506.160745429982!2d-44.15346547984869!3d-19.83655190600184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa6ec0d2c494173%3A0xbcde44c3d3573ca1!2sR.%20Retiro%20Campestre%2C%20419%20-%20Retiro%2C%20Contagem%20-%20MG%2C%2032050-400%2C%20Brasil!5e0!3m2!1spt-BR!2sus!4v1767219351637!5m2!1spt-BR!2sus"
-              width="100%"
-              height="350"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              title="Mapa PIBARE"
-            ></iframe>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
