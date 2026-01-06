@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; // 1. Importar o useState
 import { Minus, Plus } from 'lucide-react'; // Supondo que esteja usando lucide-react
-import './Products.css';
+import './Services.css';
 import { listaItens } from '../data/itens';
 
 function Services() {

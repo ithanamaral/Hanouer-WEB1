@@ -1,36 +1,141 @@
-.services-grid {
-  margin-top: 20vh;
-  margin-left: 2vw;
-}
-
-
-/* O container que segura todos os cards */
-.card-resultado {
-  display: flex;          /* Coloca os itens lado a lado */
-  flex-direction: row;    /* Garante que a direção seja horizontal */
-  flex-wrap: wrap;        /* Se não couber na tela, pula para a linha de baixo */
-  gap: 20px;              /* Dá um espaço entre os cards */
-  justify-content: center; /* Centraliza o bloco de cards na tela */
-  padding: 40px 20px;
-  width: 100%;            /* Garante que o container use o espaço todo */
-}
-
-/* O card individual */
-.service-card {
-  width: 280px;           /* Define uma largura fixa para o card não esticar */
+/* 1. CONTAINER PRINCIPAL (Services e Products) */
+.services-grid{
+  /* Empurra o conteúdo para baixo do Header fixo */
+  padding-top: 70px; 
+  padding-bottom: 70px;
+  width: 100%;
   display: flex;
-  flex-direction: column; /* Faz o conteúdo do card ficar empilhado (imagem, título, botão) */
-  align-items: center;    /* Centraliza o texto e botões dentro do card */
-  border: 1px solid #eee;
-  padding: 15px;
-  border-radius: 12px;
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  justify-content: center;
+  background-color: #f9f9f9; 
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-/* Ajuste a imagem para não vazar do card */
+/* 2. CONFIGURAÇÃO DA GRID (Onde a mágica acontece) */
+.card-resultado {
+  display: grid !important;
+  width: 100%;
+  /* Limita a largura para não espalhar demais em telas grandes */
+  max-width: 1200px; 
+  /* Cria colunas de no mínimo 250px que se ajustam sozinhas */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 30px;
+  padding: 20px;
+  /* Centraliza o bloco da grid na página */
+  margin: 0 auto; 
+  align-items: stretch;
+}
+
+/* 3. ESTILO DOS CARDS (Com efeito de Hover) */
+.service-card, 
+.produto-card {
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  
+
+}
+
+/* Efeito ao passar o mouse */
+.service-card:hover, 
+.produto-card:hover {
+  transform: translateY(-8px); /* Card sobe 8 pixels */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Sombra aumenta */
+  border-color: #004aad; /* Borda muda para o azul da sua marca */
+}
+
+/* 4. AJUSTE DAS IMAGENS */
+.card-image-container {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
 .card-img {
   max-width: 100%;
-  height: 200px;
-  object-fit: contain;
+  max-height: 100%;
+  /* Garante que a imagem apareça inteira sem cortes */
+  object-fit: contain; 
+}
+
+/* 5. TEXTOS E PREÇOS */
+h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 10px 0;
+  /* Garante que todos os títulos ocupem o mesmo espaço (até 2 linhas) */
+  min-height: 2.8rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preco-txt {
+  color: #2ecc71;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+/* 6. CONTROLE DE QUANTIDADE (+ e -) */
+.quantidade-control {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: #f1f1f1;
+  padding: 8px 15px;
+  border-radius: 25px;
+}
+
+.btn-qtd {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #004aad;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  transition: opacity 0.2s;
+}
+
+.btn-qtd:hover {
+  opacity: 0.7;
+}
+
+.qtd-numero {
+  font-weight: bold;
+  font-size: 1.1rem;
+  min-width: 20px;
+}
+
+/* 7. BOTÃO ADICIONAR AO CARRINHO */
+.btn-ver {
+  width: 100%;
+  background-color: #004aad;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  /* Empurra o botão para a base do card independente do conteúdo acima */
+  margin-top: auto; 
+  transition: background 0.3s;
+}
+
+.btn-ver:hover {
+  background-color: #003580;
 }

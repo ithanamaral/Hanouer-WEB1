@@ -5,25 +5,36 @@
   height: 600px; 
   position: relative;
   overflow: hidden; /* Importante para não vazar imagem */
+  
 }
 
 /* Força o Swiper a ocupar 100% da altura do container pai */
 .swiper {
   width: 100%;
   height: 100%;
+
 }
 
 .slide-item {
   width: 100%;
   height: 100%;
   position: relative;
+  
 }
 
 .slide-item img {
   width: 100%;
   height: 100%;
-  /* ESSENCIAL: Mantém a proporção e corta o que sobrar */
+  
+  /* Mantém a proporção e preenche o espaço cortando as sobras nas laterais ou topo */
   object-fit: cover; 
+  
+  /* Centraliza a imagem para que o corte ocorra igualmente nos lados */
+  object-position: center; 
+  
+  /* Melhora a nitidez da imagem no redimensionamento (bom para sua Radeon Graphics) */
+  image-rendering: -webkit-optimize-contrast; 
+  
   display: block;
 }
 
