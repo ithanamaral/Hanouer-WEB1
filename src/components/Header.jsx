@@ -24,14 +24,14 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="header-content">
-          <Link to="/">
+          <Link to="/home">
             <img src={logo2} alt="Logo" className="logo-img" />
           </Link>
           <span className="logo-mobile-pibare">Hanouer</span>
 
           {/* Desktop Navigation */}
           <nav className="header-nav-desktop">
-            <Link to="/" className='nav-link'>Home</Link>
+            <Link to="/home" className='nav-link'>Home</Link>
             <Link to="/produtos" className='nav-link'>Produtos</Link>
             <Link to="/servicos" className='nav-link'>Serviços</Link>
             
@@ -73,9 +73,9 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="header-nav-mobile">
-            <Link to="/" className='mobile-nav-link' onClick={toggleMenu}>Home</Link>
-            <Link to="/devotionals" className='mobile-nav-link' onClick={toggleMenu}>Produtos</Link>
-            <Link to="/fotos" className='mobile-nav-link' onClick={toggleMenu}>Serviços</Link>
+            <Link to="/home" className='mobile-nav-link' onClick={toggleMenu}>Home</Link>
+            <Link to="/produtos" className='mobile-nav-link' onClick={toggleMenu}>Produtos</Link>
+            <Link to="/servicos" className='mobile-nav-link' onClick={toggleMenu}>Serviços</Link>
           </nav>
         )}
       </div>
