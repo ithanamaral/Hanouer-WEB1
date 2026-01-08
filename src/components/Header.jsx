@@ -5,20 +5,11 @@ import logo2 from '/logo2.png'
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const [busca, setBusca] = useState('');
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false) // Novo estado para a busca
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen) // Função para abrir/fechar busca
 
-  const realizarBusca = (e) => {
-    if (e.key === 'Enter') {
-      navigate(`/busca?q=${busca}`); // Envia para a página de busca
-      setIsSearchOpen(false);
-    }
-  };
 
   return (
     <header className="header">
@@ -33,13 +24,7 @@ const Header = () => {
           <nav className="header-nav-desktop">
             <Link to="/home" className='nav-link'>Home</Link>
             <Link to="/produtos" className='nav-link'>Produtos</Link>
-            <Link to="/servicos" className='nav-link'>Serviços</Link>
-            
-            {/* Ícone de busca agora é um botão que dispara o toggleSearch */}
-            <button onClick={toggleSearch} className='nav-icon-btn'>
-              <Search className="nav-link" />
-            </button>
-            
+            <Link to="/servicos" className='nav-link'>Serviços</Link>           
             <Link to="/perfil" className='nav-link'><Users /></Link>
             <Link to="/carrinho" className='nav-link'><Handbag /></Link>
           </nav>
@@ -51,25 +36,6 @@ const Header = () => {
             </button>
           </div>
         </div>
-
-        {/* BARRA DE BUSCA QUE DESCE */}
-        <div className={`search-bar-container ${isSearchOpen ? 'open' : ''}`}>
-          <div className="search-bar-content">
-            <input 
-              type="text" 
-              placeholder="O que você está procurando?" 
-              className="search-input"
-              autoFocus={isSearchOpen} 
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              onKeyDown={realizarBusca}
-            />
-            <button onClick={toggleSearch} className="close-search">
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="header-nav-mobile">
@@ -83,4 +49,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header 
