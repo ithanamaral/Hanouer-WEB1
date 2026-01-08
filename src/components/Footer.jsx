@@ -37,7 +37,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <div className="footer-copyright">
-              © 2026 Primeira Igreja Batista no Retiro. Todos os direitos
+              © 2026 Hanouer. Todos os direitos
               reservados.
             </div>
             <div className="footer-legal-links">
