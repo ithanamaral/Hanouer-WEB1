@@ -10,6 +10,7 @@ import Busca from './components/Busca';
 import Products from './components/Products'
 import SingIn from './components/Sign-in';
 import SingUp from './components/Sign-up';
+import Perfil from './components/Perfil';
 
 // Importa Rota
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
@@ -36,6 +37,7 @@ function App() {
             <Route path="/busca" element={<Busca />} />
             <Route path="/produtos" element={<Products />} />
             <Route path="/servicos" element={<Services />} />
+            <Route path="/perfil" element={<Perfil />} />
           </Routes>
         </div>
 

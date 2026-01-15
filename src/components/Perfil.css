@@ -1,0 +1,112 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.perfil-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.auth-card h2 {
+  font-size: 28px;
+  color: #333;
+  margin: 0;
+  font-weight: 800;
+}
+
+.edit-icon-btn {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.edit-icon-btn.active {
+  color: #004aad;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: #004aad; /* Azul marinho igual da imagem */
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 12px 14px 42px; /* O 42px garante que o texto não bata no ícone */
+  background-color: #f0f2f5; /* Fundo cinza claro dos inputs */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #004aad;
+  background-color: white;
+}
+
+.input-wrapper input:disabled {
+  background-color: #f8f9fa;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background-color: #004aad; /* Azul igual ao botão Entrar */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #003580;
+}

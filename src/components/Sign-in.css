@@ -39,24 +39,33 @@
   font-weight: 500;
 }
 
+/* 1. O container precisa ser relativo para o ícone ficar dentro dele */
 .input-with-icon {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* 2. O ícone fica fixo à esquerda */
 .input-icon {
   position: absolute;
-  left: 12px;
-  color: #004aad;
+  left: 12px; /* Distância da borda esquerda */
+  color: #6c5ce7;
+  pointer-events: none; /* Garante que clicar no ícone foque no input */
 }
 
+/* 3. A CHAVE DO PROBLEMA: O padding-left */
 .form-input {
   width: 100%;
-  padding: 12px 12px 12px 40px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: border-color 0.3s;
+  padding: 12px 16px;
+  /* Aumente o padding-left para empurrar o texto para a direita do ícone */
+  padding-left: 40px !important; 
+  
+  background: #f1f2f6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .form-input:focus {

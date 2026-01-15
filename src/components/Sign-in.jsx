@@ -31,6 +31,10 @@ function SignIn() {
 
       if (response.ok) {
         console.log("Navegando para Home...");
+        localStorage.setItem('user_cpf', result.user_cpf); 
+        localStorage.setItem('user_name', result.user_name);
+        localStorage.setItem('user_email', result.user_email);
+        localStorage.setItem('password', result.token);
         navigate('/home');
       } else {
         // Evita erro de "Object as child" pegando apenas a string do erro
