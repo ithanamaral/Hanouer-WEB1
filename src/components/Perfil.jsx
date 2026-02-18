@@ -13,7 +13,7 @@ function Perfil() {
 
   useEffect(() => {
     if (!cpfLogado) {
-      navigate('/signin');
+      navigate('/');
       return;
     }
 

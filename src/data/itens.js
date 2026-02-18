@@ -19,19 +19,19 @@ import tosa from '../assets/tosa.jpg';
 
 export const listaItens = [
     // PRODUTOS
-    { id: 1, nome: ["Biscoitinho", "biscoito"], categoria: "Produtos", preco: "R$ 80,00", src: biscoito },
-    { id: 2, nome: ["bolinha", "bolinha de cachorro", "bola"], categoria: "Produtos", preco: "R$ 50,00", src: bolinha },
-    { id: 3, nome: ["Brinquedo de gato", "Brinquedo gato", "Brinquedo"], categoria: "Produtos", preco: "R$ 50,00", src: brinquedoGato },
-    { id: 4, nome: ["cama","caminha"], categoria: "Produtos", preco: "R$ 120,00", src: cama },
-    { id: 5, nome: ["coleira"], categoria: "Produtos", preco: "R$ 70,00", src: coleira },
-    { id: 6, nome: ["produtos para banho","banho"], categoria: "Produtos", preco: "R$ 160,00", src: itemBanho },
-    { id: 7, nome: ["ração de cachorro","ração para cachorro", "ração","ração cachorro"], categoria: "Produtos", preco: "R$ 120,00", src: racaoDog },
-    { id: 8, nome: ["ração de gato","ração para gato", "ração","ração gato"], categoria: "Produtos", preco: "R$ 120,00", src: racaoGato },
-    { id: 9, nome: ["tijela","vasilha de água"], categoria: "Produtos", preco: "R$ 30,00", src: tijela },
+    { id: 1, nome: ["Biscoitinho"], categoria: "Produtos", preco: 80, src: biscoito },
+    { id: 2, nome: ["bolinha"], categoria: "Produtos", preco: 50, src: bolinha },
+    { id: 3, nome: ["Brinquedo de gato"], categoria: "Produtos", preco: 50, src: brinquedoGato },
+    { id: 4, nome: ["cama"], categoria: "Produtos", preco: 120, src: cama },
+    { id: 5, nome: ["coleira"], categoria: "Produtos", preco: 70, src: coleira },
+    { id: 6, nome: ["produtos para banho"], categoria: "Produtos", preco: 160, src: itemBanho },
+    { id: 7, nome: ["ração de cachorro"], categoria: "Produtos", preco: 120, src: racaoDog },
+    { id: 8, nome: ["ração de gato"], categoria: "Produtos", preco: 120, src: racaoGato },
+    { id: 9, nome: ["tijela"], categoria: "Produtos", preco: 30, src: tijela },
 
     // SERVIÇOS
-    { id: 10, nome: ["adestramento","adestrar cachorro"], categoria: "Serviços", preco: "R$ 300,00", src: adestramento },
-    { id: 11, nome: ["banho e tosa","banho","tosa"], categoria: "Serviços", preco: "R$ 150,00", src: banho },
-    { id: 12, nome: ["táxi dog","taxi dog","transporte pet"], categoria: "Serviços", preco: "R$ 100,00", src: taxi },
-    { id: 13, nome: ["tosa","tosar cachorro"], categoria: "Serviços", preco: "R$ 120,00", src: tosa },
+    { id: 10, nome: ["adestramento"], categoria: "Serviços", preco: 300, src: adestramento },
+    { id: 11, nome: ["banho e tosa"], categoria: "Serviços", preco: 150, src: banho },
+    { id: 12, nome: ["táxi dog"], categoria: "Serviços", preco: 100, src: taxi },
+    { id: 13, nome: ["tosa"], categoria: "Serviços", preco: 120, src: tosa },
 ];

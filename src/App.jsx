@@ -11,8 +11,8 @@ import Products from './components/Products'
 import SingIn from './components/Sign-in';
 import SingUp from './components/Sign-up';
 import Perfil from './components/Perfil';
+import Carrinho from './components/carrinho';
 
-// Importa Rota
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 function App() {
@@ -21,7 +21,6 @@ function App() {
       <div className="app-wrapper">
         <Header />
         
-        {/* Esta div é a chave para o conteúdo aparecer! */}
         <div className="main-content"> 
           <Routes>
             <Route path="/" element={<SingIn />} />
@@ -38,6 +37,7 @@ function App() {
             <Route path="/produtos" element={<Products />} />
             <Route path="/servicos" element={<Services />} />
             <Route path="/perfil" element={<Perfil />} />
+            <Route path="/carrinho" element={<Carrinho />} />
           </Routes>
         </div>
 

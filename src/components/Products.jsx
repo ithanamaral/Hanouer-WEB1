@@ -15,6 +15,35 @@ function Products() {
     });
   };
 
+  const adicionarAoCarrinho = (item) => {
+    const qtd = quantidades[item.id] || 1;
+    
+    // 1. Pega o carrinho atual ou cria um array vazio
+    const carrinhoExistente = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    // 2. Verifica se o item já está no carrinho para apenas somar a quantidade
+    const index = carrinhoExistente.findIndex((i) => i.id === item.id);
+
+    if (index !== -1) {
+      carrinhoExistente[index].quantidade += qtd;
+    } else {
+      // Adiciona novo objeto com os dados necessários
+      carrinhoExistente.push({
+        id: item.id,
+        nome: item.nome[0],
+        preco: item.preco,
+        src: item.src,
+        quantidade: qtd
+      });
+    }
+
+    // 3. Salva de volta no LocalStorage
+    localStorage.setItem('carrinho', JSON.stringify(carrinhoExistente));
+    
+    alert(`${qtd}x ${item.nome[0]} adicionado(s) ao carrinho!`);
+  };
+
+  
  return (
   <main className='products-grid'> 
     <div className="card-resultado">
@@ -46,7 +75,7 @@ function Products() {
                 </button>
               </div>
 
-              <button className="btn-ver">Adicionar ao Carrinho</button>
+              <button className="btn-ver" onClick={() => adicionarAoCarrinho(item)}>Adicionar ao Carrinho</button>
             </div>
           );
         })}
