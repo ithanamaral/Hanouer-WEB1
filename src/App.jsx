@@ -8,8 +8,8 @@ import Footer from './components/Footer'
 import Carousel from './components/carousel'
 import Busca from './components/Busca';
 import Products from './components/Products'
-import SingIn from './components/Sign-in';
-import SingUp from './components/Sign-up';
+import SignIn from './components/Sign-in';
+import SignUp from './components/Sign-up';
 import Perfil from './components/Perfil';
 import Carrinho from './components/carrinho';
 
@@ -30,8 +30,8 @@ function App() {
                 <Contact />
               </>
             } />
-            <Route path="/login" element={<SingIn />} />
-            <Route path="/signup" element={<SingUp />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/home" element={
               <>
                 <Hero />

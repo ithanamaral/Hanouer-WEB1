@@ -1,11 +1,19 @@
-import React, { useState } from 'react'; // 1. Importar o useState
+import React, { useState, useEffect } from 'react'; // 1. Importar o useState
 import { Minus, Plus } from 'lucide-react'; // Supondo que esteja usando lucide-react
 import './Services.css';
-import { listaItens } from '../data/itens';
+import { imageMap } from '../data/itens';
 
 function Services() {
   // 2. Estado para controlar as quantidades de cada item individualmente
   const [quantidades, setQuantidades] = useState({});
+  const [itens, setItens] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/itens')
+      .then(res => res.json())
+      .then(data => setItens(data))
+      .catch(err => console.error("Erro ao buscar serviços:", err));
+  }, []);
 
   const alterarQuantidade = (id, operacao) => {
     setQuantidades((prev) => {
@@ -26,7 +34,13 @@ function Services() {
     if (itemExistente) {
       itemExistente.quantidade += quantidade;
     } else {
-      carrinho.push({ ...item, quantidade });
+      carrinho.push({ 
+        id: item.id,
+        nome: item.nome[0],
+        preco: item.preco,
+        src: imageMap[item.imagem],
+        quantidade: quantidade 
+      });
     }
 
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
@@ -36,14 +50,14 @@ function Services() {
   return (
     <main className='services-grid'>
         <div className="card-resultado">
-        {listaItens.filter(item => item.categoria === 'Serviços').map((item) => {
+        {itens.filter(item => item.categoria === 'Serviços').map((item) => {
             const qtdDesteItem = quantidades[item.id] || 1;
 
             // 3. O RETURN é obrigatório aqui dentro do MAP
             return (
             <div key={item.id} className="service-card"> 
                 <div className="card-image-container">
-                <img src={item.src} alt={item.nome[0]} className="card-img" />
+                <img src={imageMap[item.imagem]} alt={item.nome[0]} className="card-img" />
                 </div>
                 
                 <h3>{item.nome[0]}</h3>

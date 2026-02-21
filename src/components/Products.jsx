@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Minus, Plus } from 'lucide-react';
 import './Products.css';
-import { listaItens } from '../data/itens';
+import { imageMap } from '../data/itens';
 
 function Products() {
   const [quantidades, setQuantidades] = useState({});
+  const [itens, setItens] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/itens')
+      .then(res => res.json())
+      .then(data => setItens(data))
+      .catch(err => console.error("Erro ao buscar produtos:", err));
+  }, []);
 
   const alterarQuantidade = (id, operacao) => {
     setQuantidades((prev) => {
@@ -32,7 +40,7 @@ function Products() {
         id: item.id,
         nome: item.nome[0],
         preco: item.preco,
-        src: item.src,
+        src: imageMap[item.imagem], // Salva o caminho resolvido no carrinho
         quantidade: qtd
       });
     }
@@ -47,7 +55,7 @@ function Products() {
  return (
   <main className='products-grid'> 
     <div className="card-resultado">
-      {listaItens
+      {itens
         .filter(item => item.categoria === 'Produtos')
         .map((item) => {
           // A lógica de quantidade deve ficar aqui dentro
@@ -56,7 +64,8 @@ function Products() {
           return (
             <div key={item.id} className="produto-card">
               <div className="card-image-container">
-                <img src={item.src} alt={item.nome[0]} className="card-img" />
+                {/* Usa o mapa para encontrar a imagem correta */}
+                <img src={imageMap[item.imagem]} alt={item.nome[0]} className="card-img" />
               </div>
               
               <h3>{item.nome[0]}</h3>

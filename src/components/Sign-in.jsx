@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { LogIn, Mail, Lock } from 'lucide-react';
 import './Sign-in.css';
 
@@ -87,7 +87,7 @@ function SignIn() {
             </button>
           </form>
           <div className="signin-footer">
-            <p>Novo por aqui? <a href="/signup">Crie uma conta</a></p>
+            <p>Novo por aqui? <Link to="/signup">Crie uma conta</Link></p>
           </div>
         </div>
       </div>

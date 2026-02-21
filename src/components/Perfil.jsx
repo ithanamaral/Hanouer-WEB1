@@ -17,7 +17,7 @@ function Perfil() {
       return;
     }
 
-    fetch(`http://localhost:8000/perfil/${cpfLogado}`)
+    fetch(`http://localhost:8000/usuario/${cpfLogado}`)
       .then(res => res.json())
       .then(data => {
         setDados({
@@ -37,7 +37,7 @@ function Perfil() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/perfil/update/${cpfLogado}`, {
+      const response = await fetch(`http://localhost:8000/usuario/${cpfLogado}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
