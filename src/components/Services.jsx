@@ -19,6 +19,20 @@ function Services() {
     });
   };
 
+  const adicionarAoCarrinho = (item, quantidade) => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const itemExistente = carrinho.find((i) => i.id === item.id);
+
+    if (itemExistente) {
+      itemExistente.quantidade += quantidade;
+    } else {
+      carrinho.push({ ...item, quantidade });
+    }
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    alert('Serviço adicionado ao carrinho!');
+  };
+
   return (
     <main className='services-grid'>
         <div className="card-resultado">
@@ -54,7 +68,10 @@ function Services() {
                 </button>
                 </div>
 
-                <button className="btn-ver">
+                <button 
+                  className="btn-ver"
+                  onClick={() => adicionarAoCarrinho(item, qtdDesteItem)}
+                >
                 Adicionar ao Carrinho
                 </button>
             </div>

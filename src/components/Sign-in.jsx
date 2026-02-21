@@ -35,7 +35,13 @@ function SignIn() {
         localStorage.setItem('user_name', result.user_name);
         localStorage.setItem('user_email', result.user_email);
         localStorage.setItem('password', result.token);
-        navigate('/home');
+        
+        const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+        if (carrinho.length > 0) {
+          navigate('/carrinho');
+        } else {
+          navigate('/home');
+        }
       } else {
         // Evita erro de "Object as child" pegando apenas a string do erro
         let msg = "Falha no login.";

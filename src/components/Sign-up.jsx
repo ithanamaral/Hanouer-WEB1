@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Adicionado para redirecionar
+import { useNavigate, Link } from 'react-router-dom'; // Adicionado para redirecionar
 import { Send, User, Mail, Lock, CreditCard } from 'lucide-react';
 import './Sign-up.css';
 
@@ -35,7 +35,7 @@ function SignUp() {
       if (response.ok) {
         setMensagem({ tipo: 'sucesso', texto: "Conta criada com sucesso! Redirecionando..." });
         formRef.current.reset();
-        setTimeout(() => navigate('/'), 2000); 
+        setTimeout(() => navigate('/login'), 2000); 
       } else {
         const erroMsg = typeof result.detail === 'string' ? result.detail : "Erro ao cadastrar.";
         setMensagem({ tipo: 'erro', texto: erroMsg });
@@ -139,7 +139,7 @@ function SignUp() {
           </form>
           
           <p className="login-link">
-            Já tem uma conta? <a href="/" >Faça Sign In</a>
+            Já tem uma conta? <Link to="/login">Faça Sign In</Link>
           </p>
         </div>
       </div>

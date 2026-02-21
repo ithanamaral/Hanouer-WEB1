@@ -46,16 +46,17 @@ const finalizarCompra = async () => {
 
   if (!cpfLogado) {
     alert("Por favor, faça login para finalizar a compra.");
-    navigate('/carrinho');
+    navigate('/login');
     return;
   }
 
   const corpoPedido = {
     cpf_usuario: cpfLogado,
     itens: itens.map(item => ({
-      id: item.id,
-      quantidade: item.quantidade,
-      preco: item.preco
+      id: Number(item.id),
+      quantidade: Number(item.quantidade),
+      // Limpa a string de preço (ex: "R$ 10,90" -> 10.90) para enviar como float
+      preco: parseFloat(String(item.preco).replace(',', '.').replace(/[^0-9.]/g, '')) || 0
     }))
   };
 
@@ -67,7 +68,8 @@ const finalizarCompra = async () => {
     });
 
     if (response.ok) {
-      alert("Pedido salvo no banco de dados com sucesso!");
+      const dados = await response.json();
+      alert(`Pedido realizado com sucesso! ID: ${dados.pedido_id}`);
       localStorage.removeItem('carrinho'); 
       setItens([]);
       navigate('/home');
@@ -76,6 +78,7 @@ const finalizarCompra = async () => {
     }
   } catch (error) {
     console.error("Erro na conexão:", error);
+    alert("Erro de conexão com o servidor.");
   }
 };
 

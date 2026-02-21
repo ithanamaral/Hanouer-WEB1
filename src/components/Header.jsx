@@ -1,15 +1,25 @@
 import { useState } from 'react'
-import { Menu, X, Heart, Users, Search, Handbag } from 'lucide-react'
+import { Menu, X, Heart, Users, Search, Handbag, LogOut } from 'lucide-react'
 import './Header.css'
 import logo2 from '/logo2.png' 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Força atualização do componente ao mudar de rota
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
+  const isLogged = !!localStorage.getItem('user_cpf');
+
+  const handleLogout = () => {
+    localStorage.removeItem('user_cpf');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('password');
+    navigate('/login');
+  };
 
   return (
     <header className="header">
@@ -26,7 +36,25 @@ const Header = () => {
             <Link to="/produtos" className='nav-link'>Produtos</Link>
             <Link to="/servicos" className='nav-link'>Serviços</Link>           
             <Link to="/perfil" className='nav-link'><Users /></Link>
-            <Link to="/carrinho" className='nav-link'><Handbag /></Link>
+            {isLogged && (
+              <button 
+                className='nav-link' 
+                style={{background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center'}}
+                onClick={handleLogout}
+                title="Sair"
+              >
+                <LogOut />
+              </button>
+            )}
+            <button 
+              className='nav-link' 
+              style={{background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center'}}
+              onClick={() => {
+                navigate('/carrinho');
+              }}
+            >
+              <Handbag />
+            </button>
           </nav>
 
           {/* Mobile menu button */}
