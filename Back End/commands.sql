@@ -55,16 +55,3 @@ CREATE TABLE Item_Pedido_Produto(
         REFERENCES produtos("id_produto")
         ON DELETE CASCADE
 );
-
--- Add dados de teste
-INSERT INTO usuarios (name, CPF, email, password) VALUES ('Alice Silva', '12345678901', 'alice.silva@example.com', 'senha123');
-INSERT INTO pedidos(id_pedido, data_pedido, valor_total, CPF_fk_Usuario) VALUES (1, '2024-06-01', 150.00, '12345678901');
-INSERT INTO produtos (id_produto, name, preco) VALUES (1, 'Camiseta', 50.00);
-INSERT INTO Item_Pedido_Produto (id_fk_pedido, id_fk_produto, quantidade, preço_unitário)
-VALUES (1, 1, 1, 50.00);
--- Não vai add por que não existe
-INSERT INTO Item_Pedido_Produto (id_fk_pedido, id_fk_produto, quantidade, preço_unitário)
-VALUES (2, 2, 1, 50.00);
-
-
-INSERT INTO usuarios (name, CPF, email, password) VALUES ('Íthan P. Amaral', '10781629640', 'ithanamaral@gmail.com', 'senha123');
