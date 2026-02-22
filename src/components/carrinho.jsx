@@ -74,7 +74,8 @@ const finalizarCompra = async () => {
       setItens([]);
       navigate('/home');
     } else {
-      alert("Erro ao salvar pedido no servidor.");
+      const erro = await response.json();
+      alert(`Erro ao salvar pedido: ${erro.detail || "Erro desconhecido"}`);
     }
   } catch (error) {
     console.error("Erro na conexão:", error);
