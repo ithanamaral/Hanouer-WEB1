@@ -1,0 +1,190 @@
+.admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.admin-container h1 {
+  color: #1518b2;
+  margin-bottom: 0.5rem;
+}
+
+.tabela-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: white;
+}
+
+.tabela-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-container-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.admin-add-order{
+  margin-top: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.header-add-order{
+  background-color: #1518b2;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 8px;
+}
+
+.form-group-admin{ 
+  gap: 10px; /* Cria um espaço entre os elementos (filhos) */
+}
+
+
+.preview-pedido{
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Cria 3 colunas de tamanhos iguais */
+  grid-template-rows: auto; /* As linhas se ajustam ao conteúdo */
+}
+
+.preview-pedido h4{
+  grid-column: 1 / -1; /* Faz o título ocupar da coluna 1 até o final */
+}
+
+.preview-pedido .btn-finalizar-admin{
+  grid-column: 1 / -1;
+  width: 40%;
+  justify-self: center;
+  margin-top: 1rem;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center; /* Centraliza o texto horizontalmente */
+  align-items: center;     /
+}
+
+.form-admin-row{
+  display: grid; /* Ativa o modo de grade */
+  grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de tamanhos iguais */
+  grid-template-rows: auto; /* As linhas se ajustam ao conteúdo */
+  line-height: 70px;
+  margin-left: 1rem;
+}
+
+.btn-remove-mini{
+  margin-left: 1rem;
+  color: white;
+  background-color: #dc3545;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.formata{
+  width: 300%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.select{
+  width: 75%;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-add-item{
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+
+.header-add-order h3{
+  color: white !important;
+}
+
+.tabela-pedidos th {
+  background-color: #1518b2;
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tabela-pedidos th svg {
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+.tabela-pedidos td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+.tabela-pedidos tr:hover {
+  background-color: #f8f9fa;
+}
+
+.col-id {
+  font-weight: bold;
+  color: #555;
+}
+
+.cpf-text {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.lista-itens-admin {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-itens-admin li {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+.col-total {
+  font-weight: bold;
+  color: #2e7d32;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+

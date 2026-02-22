@@ -21,6 +21,8 @@ const Header = () => {
     navigate('/login');
   };
 
+  const userEmail = localStorage.getItem('user_email');
+
   return (
     <header className="header">
       <div className="header-container">
@@ -35,7 +37,12 @@ const Header = () => {
             <Link to="/home" className='nav-link'>Home</Link>
             <Link to="/produtos" className='nav-link'>Produtos</Link>
             <Link to="/servicos" className='nav-link'>Serviços</Link>           
-            <Link to="/perfil" className='nav-link'><Users /></Link>
+            {userEmail == 'admin@admin.com' && (
+              <Link to="/dashboard" className='nav-link'>Dashboard</Link>
+            )}
+            {userEmail !== 'admin@admin.com' && (
+              <Link to="/perfil" className='nav-link'><Users /></Link>
+            )}
             {isLogged && (
               <button 
                 className='nav-link' 

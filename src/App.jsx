@@ -12,6 +12,7 @@ import SignIn from './components/Sign-in';
 import SignUp from './components/Sign-up';
 import Perfil from './components/Perfil';
 import Carrinho from './components/carrinho';
+import AdminDashboard from './components/AdminDashboard';
 
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
@@ -30,6 +31,7 @@ function App() {
                 <Contact />
               </>
             } />
+            <Route path="/dashboard" element={<AdminDashboard />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/home" element={
