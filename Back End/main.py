@@ -9,10 +9,18 @@ from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
+from contextlib import asynccontextmanager
 
 # --- CONFIGURAÇÃO DO BANCO DE DADOS (SQLite) ---
 # Cria um arquivo 'db.sqlite' na mesma pasta
 SQLALCHEMY_DATABASE_URL = "sqlite:///./db.sqlite"
+# Garante que o banco seja criado sempre na pasta onde está este arquivo (main.py)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "db.sqlite")
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{DB_PATH}"
+
+print(f"--- BANCO DE DADOS LOCALIZADO EM: {DB_PATH} ---")
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
@@ -84,8 +92,55 @@ class ItemPedidoServico(Base):
 # Cria as tabelas no banco de dados automaticamente
 Base.metadata.create_all(bind=engine)
 
+# --- POPULAR BANCO AO INICIAR (LIFESPAN) ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    db = SessionLocal()
+    if db.query(Produto).count() == 0 and db.query(Servico).count() == 0:
+        print("Populando banco de dados com itens iniciais...")
+        
+        # Produtos (IDs 1-9)
+        produtos_iniciais = [
+            Produto(id=1, name="Biscoitinho", preco=80.0, categoria="Produtos", imagem="biscoitinho.png"),
+            Produto(id=2, name="bolinha", preco=50.0, categoria="Produtos", imagem="bolinha-cachorro.jpg"),
+            Produto(id=3, name="arranhadora de gato", preco=50.0, categoria="Produtos", imagem="brinquedo-gato.jpg"),
+            Produto(id=4, name="cama", preco=120.0, categoria="Produtos", imagem="caminha-pet.jpg"),
+            Produto(id=5, name="coleira", preco=70.0, categoria="Produtos", imagem="coleira.jpg"),
+            Produto(id=6, name="produtos para banho", preco=160.0, categoria="Produtos", imagem="item-banho.png"),
+            Produto(id=7, name="ração de cachorro", preco=120.0, categoria="Produtos", imagem="racao-dog.jpg"),
+            Produto(id=8, name="ração de gato", preco=120.0, categoria="Produtos", imagem="racao-gato.jpg"),
+            Produto(id=9, name="tijela", preco=30.0, categoria="Produtos", imagem="tijela.png"),
+            Produto(id=10, name="perfumes", preco=35.0, categoria="Produtos", imagem="perfumes.png"),
+            Produto(id=11, name="caixa de transportes", preco=40.0, categoria="Produtos", imagem="caixa de transportes.png"),
+            Produto(id=12, name="presilhas de cabelo", preco=15.0, categoria="Produtos", imagem="presilhas de cabelo.png"),
+            Produto(id=13, name="pelúcias", preco=25.0, categoria="Produtos", imagem="pelucias.png"),
+            Produto(id=14, name="bifinhos", preco=50.0, categoria="Produtos", imagem="bifinhos.png"),
+            Produto(id=15, name="areia de gato", preco=70.0, categoria="Produtos", imagem="areia de gato.png"),
+            Produto(id=16, name="neutralizador de odor", preco=30.0, categoria="Produtos", imagem="neutralizador de odor.png"),
+            Produto(id=17, name="vermífugos", preco=45.0, categoria="Produtos", imagem="vermifugo.png"),
+
+            # Novos produtos (Use IDs que não conflitem com serviços, ex: 14, 15...)
+            # Produto(id=14, name="Shampoo Pet", preco=25.0, categoria="Produtos", imagem="shampoo.png"),
+        ]
+        
+        # Serviços (IDs 10-13)
+        servicos_iniciais = [
+            Servico(id=18, name="adestramento", preco=300.0, categoria="Serviços", imagem="adestramento.jpg"),
+            Servico(id=19, name="banho e tosa", preco=150.0, categoria="Serviços", imagem="banho.jpg"),
+            Servico(id=20, name="táxi dog", preco=100.0, categoria="Serviços", imagem="taxi-dog.jpg"),
+            Servico(id=21, name="tosa", preco=120.0, categoria="Serviços", imagem="tosa.jpg"),
+            # Novos serviços
+            # Servico(id=15, name="Hotelzinho", preco=200.0, categoria="Serviços", imagem="hotel.jpg"),
+        ]
+        
+        db.add_all(produtos_iniciais)
+        db.add_all(servicos_iniciais)
+        db.commit()
+    db.close()
+    yield
+
 # --- APP FASTAPI ---
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 # Configuração de CORS para permitir requisições do Front End
 app.add_middleware(
@@ -103,39 +158,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-# --- POPULAR BANCO AO INICIAR (SE ESTIVER VAZIO) ---
-@app.on_event("startup")
-def startup_populate_db():
-    db = SessionLocal()
-    if db.query(Produto).count() == 0 and db.query(Servico).count() == 0:
-        print("Populando banco de dados com itens iniciais...")
-        
-        # Produtos (IDs 1-9)
-        produtos_iniciais = [
-            Produto(id=1, name="Biscoitinho", preco=80.0, categoria="Produtos", imagem="biscoitinho.png"),
-            Produto(id=2, name="bolinha", preco=50.0, categoria="Produtos", imagem="bolinha-cachorro.jpg"),
-            Produto(id=3, name="Brinquedo de gato", preco=50.0, categoria="Produtos", imagem="brinquedo-gato.jpg"),
-            Produto(id=4, name="cama", preco=120.0, categoria="Produtos", imagem="caminha-pet.jpg"),
-            Produto(id=5, name="coleira", preco=70.0, categoria="Produtos", imagem="coleira.jpg"),
-            Produto(id=6, name="produtos para banho", preco=160.0, categoria="Produtos", imagem="item-banho.png"),
-            Produto(id=7, name="ração de cachorro", preco=120.0, categoria="Produtos", imagem="racao-dog.jpg"),
-            Produto(id=8, name="ração de gato", preco=120.0, categoria="Produtos", imagem="racao-gato.jpg"),
-            Produto(id=9, name="tijela", preco=30.0, categoria="Produtos", imagem="tijela.png"),
-        ]
-        
-        # Serviços (IDs 10-13)
-        servicos_iniciais = [
-            Servico(id=10, name="adestramento", preco=300.0, categoria="Serviços", imagem="adestramento.jpg"),
-            Servico(id=11, name="banho e tosa", preco=150.0, categoria="Serviços", imagem="banho.jpg"),
-            Servico(id=12, name="táxi dog", preco=100.0, categoria="Serviços", imagem="taxi-dog.jpg"),
-            Servico(id=13, name="tosa", preco=120.0, categoria="Serviços", imagem="tosa.jpg"),
-        ]
-        
-        db.add_all(produtos_iniciais)
-        db.add_all(servicos_iniciais)
-        db.commit()
-    db.close()
 
 # --- SCHEMAS (DADOS RECEBIDOS DO FRONT) ---
 class ItemCarrinho(BaseModel):
@@ -161,6 +183,12 @@ class UsuarioUpdate(BaseModel):
     name: str
     email: str
     password: str
+
+class NovoItemSchema(BaseModel):
+    name: str
+    preco: float
+    tipo: str # "produto" ou "servico"
+    imagem: str = "biscoitinho.png"
 
 # --- FUNÇÃO DE ENVIO DE EMAIL ---
 def enviar_email_confirmacao(destinatario: str, id_pedido: int, valor: float):
@@ -235,6 +263,21 @@ def listar_pedidos_admin(db: Session = Depends(get_db)):
         })
     return resultado
 
+@app.get("/admin/stats")
+def get_dashboard_stats(db: Session = Depends(get_db)):
+    total_vendas = db.query(func.sum(Pedido.valor_total)).scalar() or 0.0
+    qtd_pedidos = db.query(Pedido).count()
+    qtd_clientes = db.query(Usuario).count()
+    
+    ticket_medio = total_vendas / qtd_pedidos if qtd_pedidos > 0 else 0
+
+    return {
+        "total_vendas": total_vendas,
+        "qtd_pedidos": qtd_pedidos,
+        "qtd_clientes": qtd_clientes,
+        "ticket_medio": ticket_medio
+    }
+
 @app.get("/admin/usuarios")
 def listar_usuarios_admin(db: Session = Depends(get_db)):
     # Retorna apenas dados básicos para o select do admin
@@ -255,6 +298,25 @@ def deletar_pedido(id: int, db: Session = Depends(get_db)):
     db.delete(pedido)
     db.commit()
     return {"status": "sucesso", "mensagem": "Pedido removido"}
+
+@app.post("/admin/novo-item")
+def criar_novo_item(item: NovoItemSchema, db: Session = Depends(get_db)):
+    if item.tipo == "produto":
+        # Gera ID manual (simples)
+        max_id = db.query(func.max(Produto.id)).scalar() or 0
+        novo = Produto(id=max_id + 1, name=item.name, preco=item.preco, imagem=item.imagem, categoria="Produtos")
+        db.add(novo)
+    
+    elif item.tipo == "servico":
+        max_id = db.query(func.max(Servico.id)).scalar() or 0
+        novo = Servico(id=max_id + 1, name=item.name, preco=item.preco, imagem=item.imagem, categoria="Serviços")
+        db.add(novo)
+    
+    else:
+        raise HTTPException(status_code=400, detail="Tipo inválido. Use 'produto' ou 'servico'.")
+
+    db.commit()
+    return {"status": "sucesso"}
 
 @app.post("/finalizar-pedido")
 def finalizar_pedido(dados: PedidoSchema, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):

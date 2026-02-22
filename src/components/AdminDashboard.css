@@ -1,18 +1,220 @@
+/* Container Principal */
 .admin-container {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 80vh;
+  font-family: sans-serif;
 }
 
-.admin-container h1 {
-  color: #1518b2;
-  margin-bottom: 0.5rem;
+.admin-container-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Força um buraco de 30px entre cada bloco */
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Reset total para a linha do formulário */
+.form-admin-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-end;
+  line-height: normal !important; /* MATA o line-height de 70px anterior */
+}
+
+/* Garante que o card de stats não suba no formulário */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 0; /* O gap do container já resolve */
+}
+
+/* Remove qualquer altura fixa que possa estar espremendo o conteúdo */
+.stat-card, .admin-add-order {
+  height: auto !important; 
+  position: relative !important;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-info h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.stat-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* SEÇÃO DE ADICIONAR/CADASTRAR (Cards Brancos) */
+.admin-add-order {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden; /* Garante que o header azul respeite o border-radius */
+}
+
+.header-add-order {
+  background-color: #1518b2;
+  padding: 1rem;
+  color: white;
+}
+
+.header-add-order h3 {
+  margin: 0;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+/* FORMULÁRIO EM GRID */
+.form-admin-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 0.6fr 1fr; /* Colunas proporcionais */
+  gap: 20px;
+  padding: 1.5rem;
+  align-items: end; /* Alinha labels em cima e inputs embaixo */
+}
+
+.form-group-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-admin label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.select:focus {
+  border-color: #1518b2;
+}
+
+/* BOTÕES */
+.formata {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-add-item {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn-add-item:hover {
+  background-color: #1b5e20;
+}
+
+/* PREVIEW DO PEDIDO (O que você estava ajustando) */
+.preview-pedido {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-top: 2px solid #eee;
+  display: grid;
+  grid-template-columns: 1fr auto; /* Esquerda: itens, Direita: Total */
+  gap: 1rem;
+  align-items: start;
+}
+
+.preview-pedido h4 {
+  grid-column: 1 / -1;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.preview-pedido ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.preview-pedido li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.total-preview {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #2e7d32;
+  align-self: center;
+}
+
+.btn-finalizar-admin {
+  grid-column: 1 / -1;
+  width: 40%;
+  justify-self: center;
+  margin-top: 1rem;
+  background-color: #1518b2;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TABELA RESPONSIVA */
 .tabela-responsive {
   overflow-x: auto;
-  margin-top: 2rem;
+  margin-top: 3rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border-radius: 8px;
   background: white;
@@ -21,170 +223,67 @@
 .tabela-pedidos {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
-}
-
-.admin-container-header{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.admin-add-order{
-  margin-top: 3rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 8px;
-}
-
-.header-add-order{
-  background-color: #1518b2;
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-weight: 600;
-  white-space: nowrap;
-  border-radius: 8px;
-}
-
-.form-group-admin{ 
-  gap: 10px; /* Cria um espaço entre os elementos (filhos) */
-}
-
-
-.preview-pedido{
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr); /* Cria 3 colunas de tamanhos iguais */
-  grid-template-rows: auto; /* As linhas se ajustam ao conteúdo */
-}
-
-.preview-pedido h4{
-  grid-column: 1 / -1; /* Faz o título ocupar da coluna 1 até o final */
-}
-
-.preview-pedido .btn-finalizar-admin{
-  grid-column: 1 / -1;
-  width: 40%;
-  justify-self: center;
-  margin-top: 1rem;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center; /* Centraliza o texto horizontalmente */
-  align-items: center;     /
-}
-
-.form-admin-row{
-  display: grid; /* Ativa o modo de grade */
-  grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de tamanhos iguais */
-  grid-template-rows: auto; /* As linhas se ajustam ao conteúdo */
-  line-height: 70px;
-  margin-left: 1rem;
-}
-
-.btn-remove-mini{
-  margin-left: 1rem;
-  color: white;
-  background-color: #dc3545;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-
-.formata{
-  width: 300%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.select{
-  width: 75%;
-  padding: 0.5rem;
-  margin-left: 1rem;
-  margin-right: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.btn-add-item{
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  width: 70%;
-}
-
-
-.header-add-order h3{
-  color: white !important;
 }
 
 .tabela-pedidos th {
   background-color: #1518b2;
   color: white;
   padding: 1rem;
+  text-align: left;
   font-weight: 600;
   white-space: nowrap;
-}
-
-.tabela-pedidos th svg {
-  vertical-align: middle;
-  margin-right: 5px;
-  margin-bottom: 2px;
 }
 
 .tabela-pedidos td {
   padding: 1rem;
   border-bottom: 1px solid #eee;
-  vertical-align: top;
-}
-
-.tabela-pedidos tr:hover {
-  background-color: #f8f9fa;
-}
-
-.col-id {
-  font-weight: bold;
-  color: #555;
-}
-
-.cpf-text {
-  font-size: 0.85rem;
-  color: #777;
-}
-
-.lista-itens-admin {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.lista-itens-admin li {
-  margin-bottom: 4px;
-  font-size: 0.95rem;
+  vertical-align: middle;
 }
 
 .col-total {
   font-weight: bold;
   color: #2e7d32;
-  font-size: 1.1rem;
-  white-space: nowrap;
 }
 
+.btn-remove-mini {
+  color: white;
+  background-color: #dc3545;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.btn-remove-mini:hover {
+  opacity: 0.8;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-admin-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-admin-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-finalizar-admin {
+    width: 90%;
+  }
+}

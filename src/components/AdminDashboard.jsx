@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
-import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2 } from 'lucide-react';
 import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2, PackagePlus } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [pedidos, setPedidos] = useState([]);
-  
+
+  const [stats, setStats] = useState({ total_vendas: 0, qtd_pedidos: 0, qtd_clientes: 0, ticket_medio: 0 });
   // Estados para o formulário de adição manual
   const [usuarios, setUsuarios] = useState([]);
   const [itensDisponiveis, setItensDisponiveis] = useState([]);
@@ -37,6 +37,12 @@ const AdminDashboard = () => {
       .then(res => res.json())
       .then(data => setItensDisponiveis(data))
       .catch(err => console.error("Erro ao carregar itens:", err));
+
+    // 4. Carrega Estatísticas
+    fetch('http://localhost:8000/admin/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error("Erro ao carregar stats:", err));
   };
 
   useEffect(() => {
@@ -56,7 +62,10 @@ const AdminDashboard = () => {
     e.preventDefault();
     if (!selectedItemId || quantidade < 1) return;
 
-    const itemOriginal = itensDisponiveis.find(i => i.id === parseInt(selectedItemId));
+    const [categoria, idStr] = selectedItemId.split('|');
+    const id = parseInt(idStr);
+
+    const itemOriginal = itensDisponiveis.find(i => i.id === id && i.categoria === categoria);
     if (!itemOriginal) return;
 
     const novoItem = {
@@ -164,6 +173,38 @@ const AdminDashboard = () => {
         <p>Acompanhamento de vendas e serviços contratados.</p>
       </div>
 
+      {/* SEÇÃO DE CARDS */}
+      <section className="dashboard-stats">
+        <div className="stat-card">
+          <div className="stat-icon" style={{backgroundColor: '#e0f2fe', color: '#0284c7'}}><DollarSign size={24} /></div>
+          <div className="stat-info">
+            <h3>R$ {stats.total_vendas.toFixed(2)}</h3>
+            <p>Faturamento Total</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon" style={{backgroundColor: '#dcfce7', color: '#16a34a'}}><ShoppingBag size={24} /></div>
+          <div className="stat-info">
+            <h3>{stats.qtd_pedidos}</h3>
+            <p>Pedidos Realizados</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon" style={{backgroundColor: '#f3e8ff', color: '#9333ea'}}><User size={24} /></div>
+          <div className="stat-info">
+            <h3>{stats.qtd_clientes}</h3>
+            <p>Clientes Cadastrados</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon" style={{backgroundColor: '#fff7ed', color: '#ea580c'}}><DollarSign size={24} /></div>
+          <div className="stat-info">
+            <h3>R$ {stats.ticket_medio.toFixed(2)}</h3>
+            <p>Ticket Médio</p>
+          </div>
+        </div>
+      </section>
+
       {/* SEÇÃO DE ADICIONAR PEDIDO MANUALMENTE */}
       <section className="admin-add-order">
         <div className="header-add-order">
@@ -194,7 +235,7 @@ const AdminDashboard = () => {
             >
               <option value="">Selecione produto/serviço...</option>
               {itensDisponiveis.map(item => (
-                <option key={item.id} value={item.id}>
+                <option key={`${item.categoria}-${item.id}`} value={`${item.categoria}|${item.id}`}>
                   {item.nome[0]} - R$ {item.preco}
                 </option>
               ))}
