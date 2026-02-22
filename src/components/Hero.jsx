@@ -1,5 +1,4 @@
 import { ArrowRight, Play } from 'lucide-react'
-import churchExterior from '../assets/Foto1.jpeg'
 import './Hero.css'
 import Carrossel from './carousel'
 
