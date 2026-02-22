@@ -24,9 +24,19 @@ import adestramento from '../assets/adestramento.jpg';
 import banho from '../assets/banho.jpg';
 import taxi from '../assets/taxi-dog.jpg';
 import tosa from '../assets/tosa.jpg';
+import penteado from '../assets/penteado para cachorro.png';
+import cromoterapia from '../assets/cromoterapia.png';
+import passeio from '../assets/passeio com cachorro.png';
+import cuidadosFilhotes from '../assets/cuidados com filhotes.png';
+import limpezaOuvido from '../assets/limpeza de ouvido.png';
 
 
 export const imageMap = {
+    "passeio com cachorro.png": passeio,
+    "cuidados com filhotes.png": cuidadosFilhotes,
+    "limpeza de ouvido.png": limpezaOuvido,
+    "cromoterapia.png": cromoterapia,
+    "penteado para cachorro.png": penteado,
     "biscoitinho.png": biscoito,
     "bolinha-cachorro.jpg": bolinha,
     "brinquedo-gato.jpg": brinquedoGato,
