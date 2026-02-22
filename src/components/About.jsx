@@ -1,5 +1,4 @@
 import { Heart, Users, BookOpen, HandHeart } from "lucide-react";
-import welcomingInterior from "../assets/Foto26.jpeg";
 import "./About.css";
 import Products from "./Products";
 import Services from "./Services";
