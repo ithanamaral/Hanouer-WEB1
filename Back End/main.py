@@ -128,7 +128,12 @@ async def lifespan(app: FastAPI):
             Servico(id=18, name="adestramento", preco=300.0, categoria="Serviços", imagem="adestramento.jpg"),
             Servico(id=19, name="banho e tosa", preco=150.0, categoria="Serviços", imagem="banho.jpg"),
             Servico(id=20, name="táxi dog", preco=100.0, categoria="Serviços", imagem="taxi-dog.jpg"),
-            Servico(id=21, name="tosa", preco=120.0, categoria="Serviços", imagem="tosa.jpg"),
+            Servico(id=21, name="penteados especiais", preco=60.0, categoria="Serviços", imagem="penteado para cachorro.png"),
+            Servico(id=22, name="Massoterapia e Cromoterapia", preco=100.0, categoria="Serviços", imagem="cromoterapia.png"),
+            Servico(id=23, name="Passeio com cachorro", preco=70.0, categoria="Serviços", imagem="passeio com cachorro.png"),
+            Servico(id=24, name="Curso de Cuidados para filhotes", preco=300.0, categoria="Serviços", imagem="cuidados com filhotes.png"),
+            Servico(id=25, name="Limpeza de ouvidos", preco=80.0, categoria="Serviços", imagem="limpeza de ouvido.png"),
+
             # Novos serviços
             # Servico(id=15, name="Hotelzinho", preco=200.0, categoria="Serviços", imagem="hotel.jpg"),
         ]
