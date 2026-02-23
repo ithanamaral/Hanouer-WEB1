@@ -307,6 +307,24 @@ def criar_novo_item(item: NovoItemSchema, db: Session = Depends(get_db)):
     db.commit()
     return {"status": "sucesso"}
 
+@app.delete("/admin/item/{tipo}/{id}")
+def deletar_item_catalogo(tipo: str, id: int, db: Session = Depends(get_db)):
+    if tipo == "produto" or tipo == "Produtos":
+        item = db.query(Produto).filter(Produto.id == id).first()
+        if not item:
+            raise HTTPException(status_code=404, detail="Produto não encontrado")
+        db.delete(item)
+    elif tipo == "servico" or tipo == "Serviços":
+        item = db.query(Servico).filter(Servico.id == id).first()
+        if not item:
+            raise HTTPException(status_code=404, detail="Serviço não encontrado")
+        db.delete(item)
+    else:
+        raise HTTPException(status_code=400, detail="Tipo inválido")
+    
+    db.commit()
+    return {"status": "sucesso"}
+
 @app.post("/finalizar-pedido")
 def finalizar_pedido(dados: PedidoSchema, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).filter(Usuario.cpf == dados.cpf_usuario).first()

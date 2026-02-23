@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
-import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2, PackagePlus, MessageSquare } from 'lucide-react';
+import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2, PackagePlus, MessageSquare, PackageX } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -169,6 +169,29 @@ const AdminDashboard = () => {
         carregarDados(); // Atualiza a lista de itens disponíveis
       } else {
         alert("Erro ao cadastrar item.");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  };
+
+  // Função para excluir item do catálogo (Produto ou Serviço)
+  const handleDeleteItem = async (id, categoria) => {
+    if (!confirm(`Tem certeza que deseja excluir permanentemente este item do catálogo?`)) return;
+
+    // Mapeia a categoria do front para o tipo esperado no back
+    const tipo = categoria === 'Produtos' ? 'produto' : 'servico';
+
+    try {
+      const response = await fetch(`http://localhost:8000/admin/item/${tipo}/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        alert("Item removido do catálogo com sucesso!");
+        carregarDados(); // Recarrega a lista para atualizar a tela
+      } else {
+        alert("Erro ao remover item.");
       }
     } catch (error) {
       console.error("Erro:", error);
@@ -358,6 +381,47 @@ const AdminDashboard = () => {
           ) : (
             <p style={{ color: '#666', textAlign: 'center' }}>Nenhum comentário ainda.</p>
           )}
+        </div>
+      </section>
+
+      {/* SEÇÃO DE GERENCIAMENTO DE ITENS (EXCLUIR) */}
+      <section className="admin-add-order" style={{ marginTop: '2rem' }}>
+        <div className="header-add-order" style={{ backgroundColor: '#c0392b' }}>
+           <h3><PackageX size={20} style={{ marginRight: '8px' }}/> Gerenciar Catálogo (Excluir Itens)</h3>
+        </div>
+        
+        <div className="tabela-responsive" style={{ marginTop: 0, boxShadow: 'none', maxHeight: '400px', overflowY: 'auto' }}>
+          <table className="tabela-pedidos">
+            <thead>
+              <tr>
+                <th style={{ backgroundColor: '#c0392b' }}>ID</th>
+                <th style={{ backgroundColor: '#c0392b' }}>Nome</th>
+                <th style={{ backgroundColor: '#c0392b' }}>Categoria</th>
+                <th style={{ backgroundColor: '#c0392b' }}>Preço</th>
+                <th style={{ backgroundColor: '#c0392b' }}>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {itensDisponiveis.map((item) => (
+                <tr key={`${item.categoria}-${item.id}`}>
+                  <td>#{item.id}</td>
+                  <td>{item.nome[0]}</td>
+                  <td>{item.categoria}</td>
+                  <td>R$ {item.preco}</td>
+                  <td>
+                    <button 
+                      onClick={() => handleDeleteItem(item.id, item.categoria)} 
+                      className="btn-remove-mini" 
+                      title="Excluir do Catálogo"
+                      style={{ backgroundColor: '#c0392b' }}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
