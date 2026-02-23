@@ -3,16 +3,15 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
 import Services from './components/Services'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Carousel from './components/carousel'
-import Busca from './components/Busca';
 import Products from './components/Products'
 import SignIn from './components/Sign-in';
 import SignUp from './components/Sign-up';
 import Perfil from './components/Perfil';
 import Carrinho from './components/carrinho';
 import AdminDashboard from './components/AdminDashboard';
+import Comentarios from './components/Testimonials';
 
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
@@ -28,7 +27,7 @@ function App() {
               <>
                 <Hero />
                 <About />
-                <Contact />
+               <Comentarios />
               </>
             } />
             <Route path="/dashboard" element={<AdminDashboard />} />
@@ -38,11 +37,10 @@ function App() {
               <>
                 <Hero />
                 <About />
-                <Contact />
+                <Comentarios />
               </>
             } />
             <Route path="/about" element={<About />} />
-            <Route path="/busca" element={<Busca />} />
             <Route path="/produtos" element={<Products />} />
             <Route path="/servicos" element={<Services />} />
             <Route path="/perfil" element={<Perfil />} />
