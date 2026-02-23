@@ -7,12 +7,6 @@ function Carrinho() {
   const [itens, setItens] = useState([]);
   const navigate = useNavigate();
 
-  // Carrega os itens do localStorage ao abrir a página
-  useEffect(() => {
-    const carrinhoSalvo = JSON.parse(localStorage.getItem('carrinho')) || [];
-    setItens(carrinhoSalvo);
-  }, []);
-
   // Atualiza a quantidade de um item já dentro do carrinho
   const atualizarQtd = (id, operacao) => {
     const novoCarrinho = itens.map(item => {

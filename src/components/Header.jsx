@@ -32,7 +32,7 @@ const Header = () => {
           </Link>
           <span className="logo-mobile-pibare">Hanouer</span>
 
-          {/* Desktop Navigation */}
+          {/* Navegação do Computador */}
           <nav className="header-nav-desktop">
             <Link to="/home" className='nav-link'>Home</Link>
             <Link to="/produtos" className='nav-link'>Produtos</Link>
@@ -63,22 +63,7 @@ const Header = () => {
               <Handbag />
             </button>
           </nav>
-
-          {/* Mobile menu button */}
-          <div className="header-mobile-toggle">
-            <button onClick={toggleMenu} className="mobile-toggle-btn">
-              {isMenuOpen ? <X className="toggle-icon" /> : <Menu className="toggle-icon" />}
-            </button>
-          </div>
         </div>
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="header-nav-mobile">
-            <Link to="/home" className='mobile-nav-link' onClick={toggleMenu}>Home</Link>
-            <Link to="/produtos" className='mobile-nav-link' onClick={toggleMenu}>Produtos</Link>
-            <Link to="/servicos" className='mobile-nav-link' onClick={toggleMenu}>Serviços</Link>
-          </nav>
-        )}
       </div>
     </header>
   )

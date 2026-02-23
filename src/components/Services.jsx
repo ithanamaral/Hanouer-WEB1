@@ -4,7 +4,7 @@ import './Services.css';
 import { imageMap } from '../data/itens';
 
 function Services() {
-  // 2. Estado para controlar as quantidades de cada item individualmente
+  // Estado para controlar as quantidades de cada item individualmente
   const [quantidades, setQuantidades] = useState({});
   const [itens, setItens] = useState([]);
 
@@ -20,7 +20,7 @@ function Services() {
       const qtdAtual = prev[id] || 1;
       let novaQtd = operacao === 'aumentar' ? qtdAtual + 1 : qtdAtual - 1;
       
-      // Impede que a quantidade seja menor que 1
+      // Impede que a quantidade seja menor que 1, por questão de lógica de compra
       if (novaQtd < 1) novaQtd = 1;
 
       return { ...prev, [id]: novaQtd };

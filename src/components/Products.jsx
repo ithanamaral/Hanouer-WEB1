@@ -26,10 +26,8 @@ function Products() {
   const adicionarAoCarrinho = (item) => {
     const qtd = quantidades[item.id] || 1;
     
-    // 1. Pega o carrinho atual ou cria um array vazio
     const carrinhoExistente = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-    // 2. Verifica se o item já está no carrinho para apenas somar a quantidade
     const index = carrinhoExistente.findIndex((i) => i.id === item.id);
 
     if (index !== -1) {
@@ -45,7 +43,6 @@ function Products() {
       });
     }
 
-    // 3. Salva de volta no LocalStorage
     localStorage.setItem('carrinho', JSON.stringify(carrinhoExistente));
     
     alert(`${qtd}x ${item.nome[0]} adicionado(s) ao carrinho!`);
@@ -58,7 +55,6 @@ function Products() {
       {itens
         .filter(item => item.categoria === 'Produtos')
         .map((item) => {
-          // A lógica de quantidade deve ficar aqui dentro
           const qtdDesteItem = quantidades[item.id] || 1;
 
           return (

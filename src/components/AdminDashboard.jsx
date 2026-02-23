@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
-import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2, PackagePlus } from 'lucide-react';
+import { ShoppingBag, User, Calendar, DollarSign, PlusCircle, Trash2, PackagePlus, MessageSquare } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -18,31 +18,38 @@ const AdminDashboard = () => {
   // Estado para cadastro de novo item (Produto/Serviço)
   const [novoItem, setNovoItem] = useState({ name: '', preco: '', imagem: 'biscoitinho.png', tipo: 'produto' });
 
+  const [comentarios, setComentarios] = useState([]);
 
   const carregarDados = () => {
-    // 1. Carrega Pedidos
+    //Carrega Pedidos
     fetch('http://localhost:8000/admin/pedidos')
       .then(res => res.json())
       .then(data => setPedidos(data))
       .catch(err => console.error("Erro ao carregar pedidos:", err));
 
-    // 2. Carrega Usuários para o select
+    //Carrega Usuários para o select
     fetch('http://localhost:8000/admin/usuarios')
       .then(res => res.json())
       .then(data => setUsuarios(data))
       .catch(err => console.error("Erro ao carregar usuários:", err));
 
-    // 3. Carrega Itens (Produtos/Serviços) para o select
+    //Carrega Itens (Produtos/Serviços) para o select
     fetch('http://localhost:8000/itens')
       .then(res => res.json())
       .then(data => setItensDisponiveis(data))
       .catch(err => console.error("Erro ao carregar itens:", err));
 
-    // 4. Carrega Estatísticas
+    //Carrega Estatísticas
     fetch('http://localhost:8000/admin/stats')
       .then(res => res.json())
       .then(data => setStats(data))
       .catch(err => console.error("Erro ao carregar stats:", err));
+
+    //Carrega Comentários
+    fetch('http://localhost:8000/comentarios')
+      .then(res => res.json())
+      .then(data => setComentarios(data))
+      .catch(err => console.error("Erro ao carregar comentários:", err));
   };
 
   useEffect(() => {
@@ -79,12 +86,14 @@ const AdminDashboard = () => {
     setQuantidade(1); // Reseta quantidade
   };
 
+  // Remove item da lista temporária do admin
   const removerItemCarrinho = (index) => {
     const novoCarrinho = [...carrinhoAdmin];
     novoCarrinho.splice(index, 1);
     setCarrinhoAdmin(novoCarrinho);
   };
 
+  // Add item na conta do cliente e finaliza pedido
   const finalizarPedidoAdmin = async () => {
     if (!selectedUserCpf || carrinhoAdmin.length === 0) {
       alert("Selecione um usuário e adicione pelo menos um item.");
@@ -127,7 +136,7 @@ const AdminDashboard = () => {
 
       if (response.ok) {
         alert("Pedido removido com sucesso!");
-        carregarDados(); // Atualiza a tabela
+        carregarDados();
       } else {
         alert("Erro ao remover pedido.");
       }
@@ -136,7 +145,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Função para cadastrar novo produto ou serviço
+  // Cadastra novo produto ou serviço
   const handleCreateItem = async (e) => {
     e.preventDefault();
     if (!novoItem.name || !novoItem.preco) {
@@ -205,7 +214,6 @@ const AdminDashboard = () => {
         </div>
       </section>
 
-      {/* SEÇÃO DE ADICIONAR PEDIDO MANUALMENTE */}
       <section className="admin-add-order">
         <div className="header-add-order">
         <h3>Adicionar Pedido Manualmente</h3>
@@ -257,7 +265,6 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Lista temporária de itens a serem adicionados */}
         {carrinhoAdmin.length > 0 && (
           <div className="preview-pedido">
             <h4>Itens a adicionar:</h4>
@@ -281,7 +288,6 @@ const AdminDashboard = () => {
         )}
       </section>
 
-      {/* SEÇÃO DE CADASTRAR NOVO PRODUTO/SERVIÇO */}
       <section className="admin-add-order" style={{ marginTop: '2rem' }}>
         <div className="header-add-order">
           <h3><PackagePlus size={20} style={{ marginRight: '8px' }}/> Cadastrar Novo Item</h3>
@@ -325,6 +331,33 @@ const AdminDashboard = () => {
           <div className="formata">
             <button className="btn-add-item" onClick={handleCreateItem}>Salvar Item</button>
           </div>
+        </div>
+      </section>
+
+      <section className="admin-add-order" style={{ marginTop: '2rem' }}>
+        <div className="header-add-order">
+          <h3><MessageSquare size={20} style={{ marginRight: '8px' }}/> Comentários Recentes</h3>
+        </div>
+        <div style={{ padding: '1.5rem' }}>
+          {comentarios.length > 0 ? (
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {comentarios.map((c) => (
+                <li key={c.id} style={{ 
+                  borderBottom: '1px solid #eee', 
+                  paddingBottom: '10px', 
+                  marginBottom: '10px' 
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                    <strong>{c.nome}</strong>
+                    <span style={{ fontSize: '0.85rem', color: '#666' }}>{c.data}</span>
+                  </div>
+                  <p style={{ margin: 0, color: '#444', fontStyle: 'italic' }}>"{c.mensagem}"</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ color: '#666', textAlign: 'center' }}>Nenhum comentário ainda.</p>
+          )}
         </div>
       </section>
 
