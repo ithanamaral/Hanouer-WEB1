@@ -71,7 +71,7 @@ O servidor é construído com Python e FastAPI.
 
 1.  Abra um **novo terminal** (não feche o do Back End) e navegue até a pasta raiz do projeto:
     ```bash
-    cd Hanouer-WEB1-FrontEnd
+    cd Hanouer-WEB1
     ```
 2.  Instale as dependências do projeto:
     ```bash
